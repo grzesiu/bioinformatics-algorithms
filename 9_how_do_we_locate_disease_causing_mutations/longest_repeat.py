@@ -24,13 +24,13 @@ def create_suffix_trie(text):
 def get_longest(root):
     edges = []
 
-    def in_order(curr, edge):
+    def traverse(curr, edge):
         for label, child in curr.children.items():
             if len(curr.children) > 1:
                 edges.append(edge)
-            in_order(child, edge + label)
+            traverse(child, edge + label)
 
-    in_order(root, '')
+    traverse(root, '')
     return max(edges, key=lambda x: len(x))
 
 
