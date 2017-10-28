@@ -21,22 +21,22 @@ def create_suffix_trie(text):
     return root
 
 
-def in_order(curr, edge):
+def traverse(curr, edge):
     if not len(curr.children):
         print(edge)
     elif len(curr.children) == 1:
         label, child = next(iter(curr.children.items()))
-        in_order(child, edge + label)
+        traverse(child, edge + label)
     else:
         if edge:
             print(edge)
         for label, child in curr.children.items():
-            in_order(child, label)
+            traverse(child, label)
 
 
 def main(text):
     root = create_suffix_trie(text)
-    in_order(root, '')
+    traverse(root, '')
 
 
 if __name__ == "__main__":
