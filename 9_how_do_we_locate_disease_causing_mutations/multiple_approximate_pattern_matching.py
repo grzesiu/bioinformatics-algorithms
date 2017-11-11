@@ -8,18 +8,20 @@ def last_to_first(first_indices, position):
 
 
 def get_matches(mapping, last_symbols, pattern, d):
-    mismatches = [0] * len(last_symbols)
-    while pattern:
-        pattern, symbol = pattern[:-1], pattern[-1]
+    mismatches = {i: 0 for i in range(len(last_symbols))}
+    for i in range(len(pattern) - 1, -1, -1):
+        next_mismatches = dict()
 
-        for i in range(len(last_symbols)):
-            if last_symbols[i] != symbol:
-                mismatches[i] += 1
+        for k, v in mismatches.items():
+            if last_symbols[k] != pattern[i]:
+                if v < d:
+                    next_mismatches[mapping[k]] = v + 1
+            else:
+                next_mismatches[mapping[k]] = v
 
-        _, mismatches = zip(*sorted(zip(mapping, mismatches)))
-        mismatches = list(mismatches)
+        mismatches = next_mismatches
 
-    return [i for i in range(len(mismatches)) if mismatches[i] <= d]
+    return list(mismatches.keys())
 
 
 def get_mapping(last_symbols):
@@ -64,7 +66,7 @@ def main(data_as_string):
 
 
 if __name__ == "__main__":
-    main('''ACATGCTACTTT$
+    main('''ACATGCTACTTT
 ATT GCC GCTA TATT
 1''')
 
