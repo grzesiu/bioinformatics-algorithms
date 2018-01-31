@@ -70,8 +70,7 @@ if __name__ == '__main__':
 Compute the distances between leaves in a weighted tree.
 Given: An integer n followed by the adjacency list of a weighted tree with n leaves.
 Return: A space-separated n x n (di, j), where di, j is the length of the path between leaves i and j.
-
-output
+Output:
 0   13  21  22
 13  0   12  13
 21  12  0   13
